@@ -1,15 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import English from "./pages/English/English";
+import Notes from "./pages/Notes/Notes";
+import Register from "./pages/Auth/Register/Register";
+import { LayoutPage } from "./components/LayoutPage/LayoutPage";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./assets/styles/theme";
+import "./assets/styles/main.scss";
+import { CssBaseline } from "@mui/material";
+import Photos from "./pages/Photos/Photos";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LayoutPage />}>
+            <Route path="english" element={<English />} />
+            <Route path="notes" element={<Notes />} />
+            <Route path="photos" element={<Photos />} />
+            <Route path="register" element={<Register />} />
+            <Route index element={<Navigate to="/english" replace />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
